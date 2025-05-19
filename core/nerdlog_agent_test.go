@@ -166,8 +166,17 @@ func runAgentTestCase(t *testing.T, nerdlogAgentShFname, testCasesDir, repoRoot,
 	// latest lines from the index, expecting it to index up and to produce the same
 	// result.
 
-	// TODO: add an env var or something to disable the tests for indexing up.
-	//return nil
+	// If asked to skip these repetitions with indexing up, we're done.
+	//
+	// There are at least two valid reasons to skip:
+	//
+	// - When we're running "make update-test-expectations", because for that we
+	//   need to capture stderr after the main test (without repetitions), since
+	//   stderr will be different otherwise
+	// - To run tests much faster (these repetitions are the slowest part of tests)
+	if os.Getenv("NERDLOG_AGENT_TEST_SKIP_INDEX_UP") != "" {
+		return nil
+	}
 
 	// indexReduceStep specifies how many lines we remove from the index at every
 	// step here. For most tests, it's 25.

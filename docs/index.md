@@ -8,5 +8,6 @@ It's laser-focused on being efficient while querying logs from multiple remote m
 - [How it works](./how_it_works.md)
 - [Requirements](./requirements.md)
 - [Limitations](./limitations.md)
+- [Tests](./tests.md)
 - [FAQ](./faq.md)
 - [Troubleshooting](./troubleshooting.md)

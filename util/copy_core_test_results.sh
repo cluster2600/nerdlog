@@ -14,22 +14,14 @@ for scenario_output_dir in "$tests_output_root_dir"/*; do
   scenario_name="${scenario_output_dir#$tests_output_root_dir/}"
   scenario_input_dir="$tests_input_root_dir/$scenario_name"
 
-  #echo $scenario_output_dir
-  #echo $scenario_name
-  #echo $scenario_input_dir
-
   for step_output_dir in "$scenario_output_dir"/steps/*; do
-    #echo step_output_dir: $step_output_dir
-
     if [ -e "$step_output_dir/got_log_resp.txt" ]; then
       # This is a query step, so copy the query output
       want_filename_ptr="$step_output_dir/want_log_resp_filename.txt"
       if ! [ -e "$want_filename_ptr" ]; then
-        #echo "$want_filename_ptr does not exist" 1>&2
         exit 1
       fi
       want_filename="$(cat $want_filename_ptr)"
-      #echo want: $want_filename
 
       target_want_filename="$scenario_input_dir/$want_filename"
       if ! [ -e "$target_want_filename" ]; then
@@ -37,7 +29,8 @@ for scenario_output_dir in "$tests_output_root_dir"/*; do
         continue
       fi
 
-      echo "Copying $step_output_dir/got_log_resp.txt -> $target_want_filename"
+      #echo "Copying $step_output_dir/got_log_resp.txt -> $target_want_filename"
+      echo -n .
       cp "$step_output_dir/got_log_resp.txt" "$target_want_filename"
     fi
   done
